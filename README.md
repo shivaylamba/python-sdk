@@ -43,13 +43,13 @@ Install Memori:
 
 ## Example with OpenAI
 
-    ```python
-    from openai import OpenAI
-    from memori import Memori
+```python
+from openai import OpenAI
+from memori import Memori
 
-    client = OpenAI(...)
-    mem = Memori().openai.register(client)
-    ```
+client = OpenAI(...)
+mem = Memori().openai.register(client)
+```
 
 ## Attribution
 
