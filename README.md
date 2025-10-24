@@ -94,12 +94,16 @@ mem.set_session(session_id)
 ## Full Example Using SQLAlchemy and OpenAI
 
 ```python
+from memori import Memori
+from MyLoggedInUser import MyLoggedInUser
+from openai import OpenAI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-db = create_engine("mysql+pymysql://dbuser:dbuser@dbhost/dbname
+db = create_engine("mysql+pymysql://dbuser:dbuser@dbhost/dbname")
 session = sessionmaker(autocommit=False, autoflush=False, bind=db)()
 
 client = OpenAI()
 mem = Memori(conn=session).openai.register(client)
+mem.attribution(parent_id=str(MyLoggedInUser.id), process_id="astronomer_agent")
 ```
