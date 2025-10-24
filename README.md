@@ -67,14 +67,16 @@ or
 
 1. Run this command once, via CI/CD or anytime you update the Memori SDK.
 
-    ```
+    ```python
     Memori(conn=session).storage.build()
     ```
 
 2. Instantiate Memori with the connection.
 
+    ```python
     from openai import OpenAI
     from memori import Memori
 
     client = OpenAI(...)
     mem = Memori(conn=session).openai.register(client)
+    ```
