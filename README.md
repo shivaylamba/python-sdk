@@ -73,7 +73,7 @@ session_id = mem.config.session_id
 mem.set_session(session_id)
 ```
 
-## Bring Your Own Database (BYODB)
+## Configure Your Database
 
 1. Run this command once, via CI/CD or anytime you update Memori.
 
