@@ -37,31 +37,41 @@
 
 Install Memori:
 
+    ```bash
     pip install memori
+    ```
 
 ## Example with OpenAI
 
+    ```python
     from openai import OpenAI
     from memori import Memori
 
     client = OpenAI(...)
     mem = Memori().openai.register(client)
+    ```
 
 ## Attribution
 
+    ```python
     mem.attribution(parent_id="12345", process_id="my-ai-bot")
+    ```
 
 ## Session Management
 
+    ```python
     mem.new_session()
+    ```
 
 or
 
+    ```python
     session_id = mem.config.session_id
 
     ...
 
     mem.set_session(session_id)
+    ```
 
 ## Bring Your Own Database (BYODB)
 
