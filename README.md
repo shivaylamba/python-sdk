@@ -91,7 +91,7 @@ mem.set_session(session_id)
     mem = Memori(conn=session).openai.register(client)
     ```
 
-## Full Example Using SQLAlchemy and OpenAI
+## Full Example Using MySQL, SQLAlchemy and OpenAI
 
 ```python
 from memori import Memori
