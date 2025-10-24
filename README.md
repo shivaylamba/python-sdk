@@ -90,3 +90,16 @@ mem.set_session(session_id)
     client = OpenAI(...)
     mem = Memori(conn=session).openai.register(client)
     ```
+
+## Full Example Using SQLAlchemy and OpenAI
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+db = create_engine("mysql+pymysql://dbuser:dbuser@dbhost/dbname
+session = sessionmaker(autocommit=False, autoflush=False, bind=db)()
+
+client = OpenAI()
+mem = Memori(conn=session).openai.register(client)
+```
