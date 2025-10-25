@@ -182,6 +182,8 @@ from memori import Memori
 Memori().sign_up("[your_email_address@domain.com]")
 ```
 
+Memori Advanced Augmentation is free for developers!
+
 Once you've obtained an API key, simply set the following environment variable:
 
 ```bash
