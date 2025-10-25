@@ -1,3 +1,5 @@
+[![Memori Labs](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/banner.png)](https://memorilabs.ai/)
+
 # Contributing to Memori Python SDK
 
 Thank you for your interest in contributing to Memori!
