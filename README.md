@@ -181,3 +181,5 @@ Once you've obtained an API key, simply set the following environment variable:
 ```bash
 export MEMORI_API_KEY=[api_key]
 ```
+
+Memori will now apply advanced augmentation!
