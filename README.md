@@ -179,7 +179,7 @@ Memori knows who your user is, what tasks your agent handles and creates unparal
 ```python
 from memori import Memori
 
-Memori().sign_up('your_email_address@domain.com')
+Memori().sign_up("[your_email_address@domain.com]")
 ```
 
 Once you've obtained an API key, simply set the following environment variable:
