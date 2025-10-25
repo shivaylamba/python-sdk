@@ -155,7 +155,7 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 - SQLite
 - Supabase
 
-## Advanced Augmentation
+## Memori Advanced Augmentation
 
 Memories are tracked at several different levels:
 
@@ -163,7 +163,7 @@ Memories are tracked at several different levels:
 - process: think your agent, LLM interaction or program
 - session: the current interactions between the parent, process and the LLM
 
-Memori's advanced augmentation enhances memories at each of these levels with:
+Memori's Advanced Augmentation enhances memories at each of these levels with:
 
 - attributes
 - facts
@@ -172,4 +172,4 @@ Memori's advanced augmentation enhances memories at each of these levels with:
 - rules
 - events
 
-Matching these enhancements against those of the process, Memori delivers unparalleled context.
+Memori knows who your user is, what tasks your agent handles and creates unparalleled context between the two. Augmentation occurs in the background incurring no latency.
