@@ -145,6 +145,7 @@ print(response.choices[0].message.content)
 ## Supported Datastores
 
 - CockroachDB
+- MariaDB
 - MongoDB
 - MySQL
 - Neon
