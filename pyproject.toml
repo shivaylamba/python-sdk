@@ -3,18 +3,29 @@ requires = ["google", "setuptools>=60", "setuptools_scm[toml]>=7", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "memorisdk"
-authors = [{ name="Memori", email="noc@memorilabs.ai" }]
-description = "Memori Python SDK"
-readme = "README.md"
-requires-python = ">=3.12"
-classifiers = [
-  "Operating System :: OS Independent",
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.12",
-]
+name = "memori"
 version = "3.0.0"
+description = "Memori Python SDK"
+authors = [{name = "GibsonAI Team", email = "noc@gibsonai.com"}]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["ai", "memory", "agents", "llm", "artificial-intelligence", "multi-agent"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Database :: Database Engines/Servers",
+    "Typing :: Typed",
+]
+
 dependencies = [
     "aiohttp",
     "botocore",
@@ -29,13 +40,16 @@ include = ["memori*"]
 exclude = ["tests*", "docs*", "*.egg-info"]
 
 [project.urls]
-Homepage = "https://memorilabs.ai/"
-Documentation = "https://developers.memorilabs.ai/"
-Repository = "https://github.com/GibsonAI/"
+Homepage = "https://github.com/GibsonAI/memori"
+Documentation = "https://memori.gibsonai.com/docs"
+Repository = "https://github.com/GibsonAI/memori.git"
+"Bug Tracker" = "https://github.com/GibsonAI/memori/issues"
+"Changelog" = "https://github.com/GibsonAI/memori/blob/main/CHANGELOG.md"
+"Contributing" = "https://github.com/GibsonAI/memori/blob/main/CONTRIBUTING.md"
 
 [tool.black]
 line-length=88
-target-version = ['py312']
+target-version = ['py310']
 
 [tool.isort]
 profile = "black"
