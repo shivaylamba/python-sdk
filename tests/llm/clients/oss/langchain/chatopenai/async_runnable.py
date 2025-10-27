@@ -6,20 +6,19 @@ import os
 from database.core import TestDBSession
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 
 from memori import Memori
 
-if os.environ.get("GOOGLE_API_KEY", None) is None:
-    raise RuntimeError("GOOGLE_API_KEY is not set")
+if os.environ.get("OPENAI_API_KEY", None) is None:
+    raise RuntimeError("OPENAI_API_KEY is not set")
 
 os.environ["MEMORI_TEST_MODE"] = "1"
-os.environ["MEMORI_API_KEY"] = "dev-no-such-key"
 
 
 async def main():
     session = TestDBSession()
-    client = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
+    client = ChatOpenAI(model="gpt-4o", streaming=True)
     prompt = ChatPromptTemplate.from_messages(
         [
             ("human", "{question}"),
@@ -27,10 +26,10 @@ async def main():
     )
     chain = prompt | client | StrOutputParser()
 
-    mem = Memori(conn=session).langchain.register(chatgooglegenai=client)
+    mem = Memori(conn=session).langchain.register(chatopenai=client)
 
     # Multiple registrations should not cause an issue.
-    mem.langchain.register(chatgooglegenai=client)
+    mem.langchain.register(chatopenai=client)
 
     mem.attribution(parent_id="123", process_id="456")
 
@@ -40,10 +39,25 @@ async def main():
     print(f"me: {query}")
 
     print("-" * 25)
-    print("COLLECTOR PAYLOAD OCCURRED HERE!\n")
 
+    print("llm: ", end="")
     async for chunk in chain.astream({"question": query}):
-        pass
+        print(chunk, end="", flush=True)
+
+    print("-" * 25)
+
+    query = "That planet we're talking about, in order from the sun which one is it?"
+    print(f"me: {query}")
+
+    print("-" * 25)
+    print("CONVERSATION INJECTION OCCURRED HERE!\n")
+
+    response = ""
+    async for chunk in chain.astream({"question": query}):
+        response += chunk
+
+    print("-" * 25)
+    print(f"llm: {response}", end="")
 
     print("-" * 25)
 
