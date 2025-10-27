@@ -92,8 +92,8 @@ def test_build_supported_dialect(mock_config):
     assert mock_config.driver.schema.version.read.called
 
 
-def test_build_for_rdbms_postgresql_rollback(mock_config):
-    """Test that build_for_rdbms triggers rollback for PostgreSQL on error."""
+def test_build_schema_postgresql_rollback(mock_config):
+    """Test that build_schema triggers rollback for PostgreSQL on error."""
     mock_config.conn.get_dialect.return_value = "postgresql"
 
     manager = Manager(mock_config)
@@ -105,14 +105,14 @@ def test_build_for_rdbms_postgresql_rollback(mock_config):
         PostgresqlDriver.migrations
     )
 
-    manager.build_for_rdbms()
+    manager.build_schema()
 
     # Verify rollback was called for postgresql
     assert mock_config.conn.rollback.called
 
 
-def test_build_for_rdbms_cockroachdb_rollback(mock_config):
-    """Test that build_for_rdbms triggers rollback for CockroachDB on error."""
+def test_build_schema_cockroachdb_rollback(mock_config):
+    """Test that build_schema triggers rollback for CockroachDB on error."""
     mock_config.conn.get_dialect.return_value = "cockroachdb"
 
     manager = Manager(mock_config)
@@ -121,14 +121,14 @@ def test_build_for_rdbms_cockroachdb_rollback(mock_config):
     # Simulate schema version read failure
     mock_config.driver.schema.version.read.side_effect = Exception("Schema error")
 
-    manager.build_for_rdbms()
+    manager.build_schema()
 
     # Verify rollback was called for cockroachdb
     assert mock_config.conn.rollback.called
 
 
-def test_build_for_rdbms_mysql_no_rollback(mock_config):
-    """Test that build_for_rdbms does not trigger rollback for MySQL on error."""
+def test_build_schema_mysql_no_rollback(mock_config):
+    """Test that build_schema does not trigger rollback for MySQL on error."""
     mock_config.conn.get_dialect.return_value = "mysql"
 
     manager = Manager(mock_config)
@@ -137,14 +137,14 @@ def test_build_for_rdbms_mysql_no_rollback(mock_config):
     # Simulate schema version read failure
     mock_config.driver.schema.version.read.side_effect = Exception("Schema error")
 
-    manager.build_for_rdbms()
+    manager.build_schema()
 
     # Verify rollback was NOT called for mysql
     assert not mock_config.conn.rollback.called
 
 
-def test_build_for_rdbms_no_migration_mapping(mock_config):
-    """Test that build_for_rdbms raises error for unmapped dialect."""
+def test_build_schema_no_migration_mapping(mock_config):
+    """Test that build_schema raises error for unmapped dialect."""
     mock_config.conn.get_dialect.return_value = "unknown_dialect"
 
     manager = Manager(mock_config)
@@ -154,7 +154,7 @@ def test_build_for_rdbms_no_migration_mapping(mock_config):
     mock_config.driver.schema.version.read.return_value = 0
 
     with pytest.raises(NotImplementedError) as exc_info:
-        manager.build_for_rdbms()
+        manager.build_schema()
 
     assert "No migration mapping found for dialect: unknown_dialect" in str(
         exc_info.value

@@ -28,13 +28,12 @@ class Adapter(BaseStorageAdapter):
             *args: Positional arguments for the operation
             **kwargs: Keyword arguments for the operation
         """
-        # If operation is None, this is a migration string (schema DDL)
-        # MongoDB creates collections automatically, so migrations are no-ops
+        db = self.conn.get_database()
+        
         if operation is None:
+            exec(collection_name_or_code.strip(), {'db': db})
             return None
         
-        # Normal method-style call for data operations
-        db = self.conn.get_database()
         collection = db[collection_name_or_code]
         return getattr(collection, operation)(*args, **kwargs)
 

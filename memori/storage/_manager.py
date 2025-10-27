@@ -44,7 +44,7 @@ class Manager:
         supported_dialects = self._get_supported_dialects()
 
         if dialect in supported_dialects:
-            self.build_for_rdbms()
+            self.build_schema()
         else:
             raise NotImplementedError(
                 f"Unsupported dialect: {dialect}. "
@@ -53,7 +53,7 @@ class Manager:
 
         return self
 
-    def build_for_rdbms(self):
+    def build_schema(self):
         self.cli.banner()
 
         if self.config.conn is None:
