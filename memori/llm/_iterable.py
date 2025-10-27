@@ -45,7 +45,9 @@ class Iterable:
     def __iter__(self):
         try:
             for raw_event in self.source_iterable:
-                if self.invoke.client_is_bedrock():
+                if client_is_bedrock(
+                    self.invoke._client_provider, self.invoke._client_title
+                ):
                     self.raw_response.append(bytes_to_json(copy.deepcopy(raw_event)))
 
                 yield raw_event
