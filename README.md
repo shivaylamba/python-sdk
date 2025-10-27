@@ -144,11 +144,14 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 - LangChain
 - Pydantic AI
 
+## Supported Database Integrations
+
+- DB API 2.0
+- Django
+
 ## Supported Datastores
 
 - CockroachDB
-- DB API 2.0
-- Django
 - MariaDB
 - MongoDB
 - MySQL
