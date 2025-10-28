@@ -1,3 +1,4 @@
+import os
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import aiohttp
@@ -5,7 +6,7 @@ import pytest
 import requests
 
 from memori._config import Config
-from memori._network import AsyncRequest, _ApiRetryRecoverable
+from memori._network import Api, AsyncRequest, _ApiRetryRecoverable
 
 
 class TestApiRetryRecoverable:
@@ -241,3 +242,15 @@ class TestAsyncRequest:
                 mock_set_loop.assert_called_once_with(mock_loop)
                 assert mock_loop.run_until_complete.called
                 assert result == mock_result
+
+
+def test_api_url():
+    os.environ["MEMORI_API_URL_BASE"] = "https://a.b.com"
+    assert Api(Config()).url("abc") == "https://a.b.com/v1/abc"
+
+
+def test_api_headers():
+    os.environ["MEMORI_API_URL_BASE"] = "https://a.b.com"
+    assert Api(Config()).headers() == {
+        "X-Memori-API-Key": "c18b1022-7fe2-42af-ab01-b1f9139184f0"
+    }

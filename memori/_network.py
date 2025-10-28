@@ -10,6 +10,7 @@ r"""
 """
 
 import asyncio
+import os
 from functools import partial
 
 import aiohttp
@@ -18,6 +19,61 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from memori._config import Config
+
+
+class Api:
+    def __init__(self, config: Config):
+        self.__api_key = "c18b1022-7fe2-42af-ab01-b1f9139184f0"
+        self.__base = os.environ.get("MEMORI_API_URL_BASE")
+        if self.__base is None:
+            self.__api_key = "96a7ea3e-11c2-428c-b9ae-5a168363dc80"
+            self.__base = "https://api.memorilabs.ai"
+
+        self.config = config
+
+    def get(self, route):
+        r = self.__session().get(self.url(route), headers=self.headers())
+
+        r.raise_for_status()
+
+        return r.json()
+
+    def patch(self, route, json=None):
+        r = self.__session().patch(self.url(route), headers=self.headers(), json=json)
+
+        r.raise_for_status()
+
+        return r.json()
+
+    def post(self, route, json=None):
+        r = self.__session().post(self.url(route), headers=self.headers(), json=json)
+
+        r.raise_for_status()
+
+        return r.json()
+
+    def headers(self):
+        return {"X-Memori-API-Key": self.__api_key}
+
+    def __session(self):
+        adapter = HTTPAdapter(
+            max_retries=_ApiRetryRecoverable(
+                allowed_methods=["GET", "PATCH", "POST", "PUT", "DELETE"],
+                backoff_factor=1,
+                raise_on_status=False,
+                status=None,
+                total=5,
+            )
+        )
+
+        session = requests.Session()
+        session.mount("https://", adapter)
+        session.mount("http://", adapter)
+
+        return session
+
+    def url(self, route):
+        return f"{self.__base}/v1/{route}"
 
 
 class _ApiRetryRecoverable(Retry):
