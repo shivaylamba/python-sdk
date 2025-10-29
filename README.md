@@ -169,11 +169,13 @@ Memories are tracked at several different levels:
 Memori's Advanced Augmentation enhances memories at each of these levels with:
 
 - attributes
-- facts
-- preferences
-- skills
-- rules
 - events
+- facts
+- people
+- preferences
+- relationships
+- rules
+- skills
 
 Memori knows who your user is, what tasks your agent handles and creates unparalleled context between the two. Augmentation occurs in the background incurring no latency.
 
