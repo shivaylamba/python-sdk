@@ -37,13 +37,13 @@ def test_parent_create(mock_conn, mock_single_result):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert ignore into memori_parent" in insert_call[0][0]
+    assert "INSERT IGNORE INTO memori_parent" in insert_call[0][0]
     assert insert_call[0][1][1] == "external-parent-id"
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[1]
-    assert "select id" in select_call[0][0]
-    assert "from memori_parent" in select_call[0][0]
+    assert "SELECT id" in select_call[0][0]
+    assert "FROM memori_parent" in select_call[0][0]
     assert select_call[0][1] == ("external-parent-id",)
 
 
@@ -75,13 +75,13 @@ def test_process_create(mock_conn, mock_single_result):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert ignore into memori_process" in insert_call[0][0]
+    assert "INSERT IGNORE INTO memori_process" in insert_call[0][0]
     assert insert_call[0][1][1] == "external-process-id"
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[1]
-    assert "select id" in select_call[0][0]
-    assert "from memori_process" in select_call[0][0]
+    assert "SELECT id" in select_call[0][0]
+    assert "FROM memori_process" in select_call[0][0]
     assert select_call[0][1] == ("external-process-id",)
 
 
@@ -99,13 +99,13 @@ def test_session_create(mock_conn, mock_single_result):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert ignore into memori_session" in insert_call[0][0]
+    assert "INSERT IGNORE INTO memori_session" in insert_call[0][0]
     assert insert_call[0][1] == (session_uuid, 123, 456)
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[1]
-    assert "select id" in select_call[0][0]
-    assert "from memori_session" in select_call[0][0]
+    assert "SELECT id" in select_call[0][0]
+    assert "FROM memori_session" in select_call[0][0]
     assert select_call[0][1] == (session_uuid,)
 
 
@@ -131,7 +131,7 @@ def test_conversation_create(mock_conn, mock_single_result):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert ignore into memori_conversation" in insert_call[0][0]
+    assert "INSERT IGNORE INTO memori_conversation" in insert_call[0][0]
 
     # Verify the UUID is generated and session_id is passed
     uuid_arg, session_id_arg = insert_call[0][1]
@@ -140,8 +140,8 @@ def test_conversation_create(mock_conn, mock_single_result):
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[1]
-    assert "select id" in select_call[0][0]
-    assert "from memori_conversation" in select_call[0][0]
+    assert "SELECT id" in select_call[0][0]
+    assert "FROM memori_conversation" in select_call[0][0]
     assert select_call[0][1] == (789,)
 
 
@@ -156,7 +156,7 @@ def test_conversation_message_create(mock_conn):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert into memori_conversation_message" in insert_call[0][0]
+    assert "INSERT INTO memori_conversation_message" in insert_call[0][0]
 
     # Verify parameters
     uuid_arg, conv_id, role, type_, content = insert_call[0][1]
@@ -185,8 +185,8 @@ def test_conversation_messages_read(mock_conn, mock_multiple_results):
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[0]
-    assert "select role" in select_call[0][0]
-    assert "from memori_conversation_message" in select_call[0][0]
+    assert "SELECT role" in select_call[0][0]
+    assert "FROM memori_conversation_message" in select_call[0][0]
     assert select_call[0][1] == (101,)
 
 
@@ -209,7 +209,7 @@ def test_schema_version_create(mock_conn):
 
     # Verify INSERT query
     insert_call = mock_conn.execute.call_args_list[0]
-    assert "insert into memori_schema_version" in insert_call[0][0]
+    assert "INSERT INTO memori_schema_version" in insert_call[0][0]
     assert insert_call[0][1] == (1,)
 
 
@@ -224,8 +224,8 @@ def test_schema_version_read(mock_conn, mock_single_result):
 
     # Verify SELECT query
     select_call = mock_conn.execute.call_args_list[0]
-    assert "select num" in select_call[0][0]
-    assert "from memori_schema_version" in select_call[0][0]
+    assert "SELECT num" in select_call[0][0]
+    assert "FROM memori_schema_version" in select_call[0][0]
 
 
 def test_schema_version_delete(mock_conn):
@@ -237,7 +237,7 @@ def test_schema_version_delete(mock_conn):
 
     # Verify DELETE query
     delete_call = mock_conn.execute.call_args_list[0]
-    assert "delete from memori_schema_version" in delete_call[0][0]
+    assert "DELETE FROM memori_schema_version" in delete_call[0][0]
 
 
 def test_schema_initialization(mock_conn):

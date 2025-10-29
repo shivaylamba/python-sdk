@@ -42,4 +42,8 @@ uv.lock
 *.egg-info/
 dist/
 /build/
+
+# Sensitive files (do not commit)
 google-credentials.json
+*.pem
+*.key

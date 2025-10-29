@@ -37,10 +37,10 @@ class Conversation(BaseConversation):
 
         self.conn.execute(
             """
-            insert ignore into memori_conversation(
+            INSERT IGNORE INTO memori_conversation(
                 uuid,
                 session_id
-            ) values (
+            ) VALUES (
                 %s,
                 %s
             )
@@ -55,9 +55,9 @@ class Conversation(BaseConversation):
         return (
             self.conn.execute(
                 """
-                select id
-                  from memori_conversation
-                 where session_id = %s
+                SELECT id
+                  FROM memori_conversation
+                 WHERE session_id = %s
                 """,
                 (session_id,),
             )
@@ -71,13 +71,13 @@ class ConversationMessage(BaseConversationMessage):
     def create(self, conversation_id: int, role: str, type: str, content: str):
         self.conn.execute(
             """
-            insert into memori_conversation_message(
+            INSERT INTO memori_conversation_message(
                 uuid,
                 conversation_id,
                 role,
                 type,
                 content
-            ) values (
+            ) VALUES (
                 %s,
                 %s,
                 %s,
@@ -100,10 +100,10 @@ class ConversationMessages(BaseConversationMessages):
         results = (
             self.conn.execute(
                 """
-                select role,
+                SELECT role,
                        content
-                  from memori_conversation_message
-                 where conversation_id = %s
+                  FROM memori_conversation_message
+                 WHERE conversation_id = %s
                 """,
                 (conversation_id,),
             )
@@ -122,10 +122,10 @@ class Parent(BaseParent):
     def create(self, external_id: str):
         self.conn.execute(
             """
-            insert ignore into memori_parent(
+            INSERT IGNORE INTO memori_parent(
                 uuid,
                 external_id
-            ) values (
+            ) VALUES (
                 %s,
                 %s
             )
@@ -137,9 +137,9 @@ class Parent(BaseParent):
         return (
             self.conn.execute(
                 """
-                select id
-                  from memori_parent
-                 where external_id = %s
+                SELECT id
+                  FROM memori_parent
+                 WHERE external_id = %s
                 """,
                 (external_id,),
             )
@@ -153,10 +153,10 @@ class Process(BaseProcess):
     def create(self, external_id: str):
         self.conn.execute(
             """
-            insert ignore into memori_process(
+            INSERT IGNORE INTO memori_process(
                 uuid,
                 external_id
-            ) values (
+            ) VALUES (
                 %s,
                 %s
             )
@@ -168,9 +168,9 @@ class Process(BaseProcess):
         return (
             self.conn.execute(
                 """
-                select id
-                  from memori_process
-                 where external_id = %s
+                SELECT id
+                  FROM memori_process
+                 WHERE external_id = %s
                 """,
                 (external_id,),
             )
@@ -184,11 +184,11 @@ class Session(BaseSession):
     def create(self, uuid: str, parent_id: int, process_id: int):
         self.conn.execute(
             """
-            insert ignore into memori_session(
+            INSERT IGNORE INTO memori_session(
                 uuid,
                 parent_id,
                 process_id
-            ) values (
+            ) VALUES (
                 %s,
                 %s,
                 %s
@@ -201,9 +201,9 @@ class Session(BaseSession):
         return (
             self.conn.execute(
                 """
-                select id
-                  from memori_session
-                 where uuid = %s
+                SELECT id
+                  FROM memori_session
+                 WHERE uuid = %s
                 """,
                 (uuid,),
             )
@@ -223,9 +223,9 @@ class SchemaVersion(BaseSchemaVersion):
     def create(self, num: int):
         self.conn.execute(
             """
-            insert into memori_schema_version(
+            INSERT INTO memori_schema_version(
                 num
-            ) values (
+            ) VALUES (
                 %s
             )
             """,
@@ -235,7 +235,7 @@ class SchemaVersion(BaseSchemaVersion):
     def delete(self):
         self.conn.execute(
             """
-            delete from memori_schema_version
+            DELETE FROM memori_schema_version
             """
         )
 
@@ -243,8 +243,8 @@ class SchemaVersion(BaseSchemaVersion):
         return (
             self.conn.execute(
                 """
-                select num
-                  from memori_schema_version
+                SELECT num
+                  FROM memori_schema_version
                 """
             )
             .mappings()

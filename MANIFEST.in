@@ -1,5 +1,6 @@
 # Include essential files
 include README.md
+include LICENSE
 
 # Exclude all development and Docker files
 exclude Dockerfile
@@ -9,12 +10,19 @@ exclude Makefile
 exclude .env.example
 exclude conftest.py
 exclude CONTRIBUTING.md
+exclude .pre-commit-config.yaml
+exclude uv.lock
+exclude google-credentials.json
+exclude .coverage
+exclude coverage.xml
+exclude CHANGELOG.md
 
 # Exclude test directories
 prune tests
 
 # Exclude documentation build artifacts
 prune docs
+prune htmlcov
 
 # Exclude version control
 prune .git
