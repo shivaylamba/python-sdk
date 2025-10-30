@@ -1,0 +1,101 @@
+"""
+Minimal Memori + OpenAI + SQLite example using SQLAlchemy.
+
+Demonstrates:
+- Basic Memori integration with local SQLite database
+- Automatic schema creation via mem.storage.build()
+- Message persistence with attribution tracking
+- SQLAlchemy session management
+
+Requirements:
+- Environment variables:
+  - OPENAI_API_KEY
+  - Optional: SQLITE_DB_PATH (defaults to ./memori.sqlite)
+
+Behavior:
+- Creates SQLite database file if it doesn't exist
+- Builds Memori schema (tables for messages, conversations, etc.)
+- Interactive chat loop where all messages are automatically persisted
+- Each conversation tracked by parent_id and process_id
+"""
+
+import os
+
+from dotenv import load_dotenv
+from openai import OpenAI
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import sessionmaker
+
+from memori import Memori
+
+
+def main():
+    load_dotenv()
+
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not set")
+
+    db_path = os.getenv("SQLITE_DB_PATH", "./memori.sqlite")
+    database_url = f"sqlite:///{db_path}"
+
+    client = OpenAI(api_key=api_key)
+
+    engine = create_engine(
+        database_url,
+        pool_pre_ping=True,
+        connect_args={"check_same_thread": False},
+    )
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+    session = SessionLocal()
+    try:
+        with engine.connect() as conn:
+            result = conn.execute(text("SELECT 1")).scalar_one()
+            print(f"Database connection OK: {result}")
+
+        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        # MEMORI SETUP
+        # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        # Register OpenAI client with Memori for automatic persistence
+        mem = Memori(conn=session).openai.register(client)
+
+        # Track conversations by user (parent_id) and session (process_id)
+        mem.attribution(parent_id="12345", process_id="my-ai-bot")
+
+        # Build database schema (creates tables for messages, conversations, etc.)
+        mem.storage.build()
+
+        print("\nType 'exit' to quit.\n")
+        while True:
+            try:
+                user_input = input("You: ").strip()
+            except (EOFError, KeyboardInterrupt):
+                print("\nExiting.")
+                break
+
+            if user_input.lower() in {"exit", "quit", ":q"}:
+                print("Goodbye!")
+                break
+            if not user_input:
+                continue
+
+            # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            # Use OpenAI client normally - Memori handles the rest
+            # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": user_input}],
+            )
+            assistant_reply = response.choices[0].message.content
+            print(f"AI: {assistant_reply}")
+
+            # Persist conversation to database
+            session.commit()
+    finally:
+        session.close()
+
+
+if __name__ == "__main__":
+    main()
