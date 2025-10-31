@@ -474,11 +474,7 @@ class PydanticAi(BaseClient):
         return self
 
 
-@Registry.register_client(
-    lambda client: hasattr(client, "chat")
-    and hasattr(client.chat, "create")
-    and not hasattr(client.chat, "completions")
-)
+@Registry.register_client(lambda client: "xai" in str(type(client).__module__).lower())
 class XAi(BaseClient):
     """XAI client requires special handling due to its two-step API.
 

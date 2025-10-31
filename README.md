@@ -134,6 +134,7 @@ print(response.choices[0].message.content)
 - Gemini
 - Anthropic
 - Bedrock
+- Grok (xAI)
 
 _(unstreamed, streamed, synchronous and asynchronous)_
 
@@ -144,8 +145,8 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 
 ## Supported Database Integrations
 
-- DB API 2.0
-- Django
+- **DB API 2.0** - Direct support for any Python database driver that implements the [PEP 249 Database API Specification v2.0](https://peps.python.org/pep-0249/). This includes drivers like `psycopg`, `pymysql`, `MySQLdb`, and `sqlite3`. Simply pass your raw database connection object to Memori and it will automatically detect and use the appropriate dialect.
+- **Django** - Native integration with Django's ORM and database layer
 
 ## Supported Datastores
 

@@ -38,7 +38,7 @@ async def run(db_backend: str = "default"):
 
     mem = Memori(conn=session).xai.register(client, stream=True)
 
-    mem.storage.build()
+    mem.config.storage.build()
 
     mem.xai.register(client, stream=True)
 

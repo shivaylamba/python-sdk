@@ -26,7 +26,9 @@ def test_inject_conversation_history_empty_messages(xai_wrappers, config, mocker
     config.cache.conversation_id = "conv123"
     mock_driver = mocker.MagicMock()
     mock_driver.conversation.messages.read.return_value = []
-    config.driver = mock_driver
+    mock_storage = mocker.MagicMock()
+    mock_storage.driver = mock_driver
+    config.storage = mock_storage
 
     kwargs = {"messages": ["msg1"]}
     result = xai_wrappers.inject_conversation_history(kwargs)
@@ -45,7 +47,9 @@ def test_inject_conversation_history_with_user_messages(xai_wrappers, config, mo
         mock_driver.conversation.messages.read.return_value = [
             {"role": "user", "content": "Hello"}
         ]
-        config.driver = mock_driver
+        mock_storage = mocker.MagicMock()
+        mock_storage.driver = mock_driver
+        config.storage = mock_storage
 
         mock_user.return_value = "user_msg"
         kwargs = {"messages": ["new_msg"]}
@@ -68,7 +72,9 @@ def test_inject_conversation_history_with_assistant_messages(
         mock_driver.conversation.messages.read.return_value = [
             {"role": "assistant", "content": "Hi there"}
         ]
-        config.driver = mock_driver
+        mock_storage = mocker.MagicMock()
+        mock_storage.driver = mock_driver
+        config.storage = mock_storage
 
         mock_assistant.return_value = "assistant_msg"
         kwargs = {"messages": ["new_msg"]}
@@ -93,7 +99,9 @@ def test_inject_conversation_history_with_multiple_messages(
             {"role": "assistant", "content": "Hi"},
             {"role": "user", "content": "How are you?"},
         ]
-        config.driver = mock_driver
+        mock_storage = mocker.MagicMock()
+        mock_storage.driver = mock_driver
+        config.storage = mock_storage
 
         mock_user.side_effect = ["user_msg1", "user_msg2"]
         mock_assistant.return_value = "assistant_msg"
@@ -118,7 +126,9 @@ def test_inject_conversation_history_ignores_unknown_roles(
             {"role": "system", "content": "ignored"},
             {"role": "user", "content": "Hello"},
         ]
-        config.driver = mock_driver
+        mock_storage = mocker.MagicMock()
+        mock_storage.driver = mock_driver
+        config.storage = mock_storage
 
         mock_user.return_value = "user_msg"
         kwargs = {"messages": ["new_msg"]}
