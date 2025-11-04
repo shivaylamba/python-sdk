@@ -33,6 +33,9 @@ class Adapter(BaseStorageAdapter):
         else:
             db = self.conn
 
+        if db is None:
+            raise RuntimeError("MongoDB database connection is None")
+
         if operation is None:
             if isinstance(collection_name_or_ops, list):
                 for op in collection_name_or_ops:
