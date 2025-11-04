@@ -19,11 +19,11 @@ from memori.storage._registry import Registry
 class Adapter(BaseStorageAdapter):
     """MongoDB storage adapter for MongoDB database connections."""
 
-    def execute(self, collection_name_or_code, operation=None, *args, **kwargs):
+    def execute(self, collection_name_or_ops, operation=None, *args, **kwargs):
         """Execute MongoDB operations.
 
         Args:
-            collection_name_or_code: Collection name or MongoDB shell code string
+            collection_name_or_ops: Collection name, list of ops, or single op dict
             operation: MongoDB operation (find_one, insert_one, etc.) - optional
             *args: Positional arguments for the operation
             **kwargs: Keyword arguments for the operation
@@ -34,11 +34,14 @@ class Adapter(BaseStorageAdapter):
             db = self.conn
 
         if operation is None:
-            namespace = {"db": db}
-            exec(collection_name_or_code.strip(), namespace)
+            if isinstance(collection_name_or_ops, list):
+                for op in collection_name_or_ops:
+                    self._execute_operation(db, op)
+            elif isinstance(collection_name_or_ops, dict):
+                self._execute_operation(db, collection_name_or_ops)
             return None
 
-        collection = db[collection_name_or_code]
+        collection = db[collection_name_or_ops]
         return getattr(collection, operation)(*args, **kwargs)
 
     def commit(self):
@@ -55,3 +58,16 @@ class Adapter(BaseStorageAdapter):
 
     def get_dialect(self):
         return "mongodb"
+
+    def _execute_operation(self, db, op):
+        """Execute a single MongoDB operation from a dict.
+
+        Args:
+            db: MongoDB database instance
+            op: Dict with 'collection', 'method', 'args', and 'kwargs' keys
+        """
+        collection = db[op["collection"]]
+        method = getattr(collection, op["method"])
+        args = op.get("args", [])
+        kwargs = op.get("kwargs", {})
+        method(*args, **kwargs)

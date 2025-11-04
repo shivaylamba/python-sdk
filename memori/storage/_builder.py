@@ -61,7 +61,10 @@ class Builder:
 
                 for migration in migrations[num]:
                     self.cli.notice(migration["description"], 1)
-                    self.config.storage.adapter.execute(migration["operation"])
+                    operation = migration.get("operations") or migration.get(
+                        "operation"
+                    )
+                    self.config.storage.adapter.execute(operation)
                     self.config.storage.adapter.commit()
 
             if self.config.storage.driver is None:

@@ -53,6 +53,10 @@ run-integration: ## Run integration test scripts directly (e.g., make run-integr
 lint: ## Run linting (format check)
 	docker compose exec dev uv run ruff check .
 
+security: ## Run security scans (Bandit + pip-audit)
+	docker compose exec dev uv run bandit -r memori -ll -ii
+	docker compose exec dev uv run pip-audit --require-hashes --disable-pip || true
+
 format: ## Format code
 	docker compose exec dev uv run ruff format .
 
