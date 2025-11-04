@@ -221,7 +221,7 @@ import time
 from memori import Memori
 
 if len(sys.argv) != 2:
-    print(f"usage: {{os.path.basename(sys.argv[0])} [int(job_id)]")
+    print(f"usage: {os.path.basename(sys.argv[0])} [int(job_id)]")
     exit(1)
 
 Memori.augmentation.pidlock(dir="/tmp")
