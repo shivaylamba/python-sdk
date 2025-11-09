@@ -1,11 +1,11 @@
 [![Memori Labs](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/banner.png)](https://memorilabs.ai/)
 
 <p align="center">
-  <strong>An open-source SQL-Native memory engine for AI</strong>
+  <strong>An open-source memory engine for AI</strong>
 </p>
 
 <p align="center">
-  <i>From Postgres to MySQL, Memori plugs into the SQL databases you already use. Simple setup, infinite scale without new infrastructure.</i>
+  <i>From Postgres to MySQL to MongoDB, Memori plugs into the databases you already use. Simple setup, infinite scale without new infrastructure.</i>
 </p>
 
 <p align="center">
@@ -76,7 +76,7 @@ mem.set_session(session_id)
 1. Run this command once, via CI/CD or anytime you update Memori.
 
     ```python
-    Memori(conn=SessionLocal).config.storage.build()
+    Memori(conn=db_session_factory).config.storage.build()
     ```
 
 2. Instantiate Memori with the connection factory.
@@ -86,29 +86,28 @@ mem.set_session(session_id)
     from memori import Memori
 
     client = OpenAI(...)
-    mem = Memori(conn=SessionLocal).openai.register(client)
+    mem = Memori(conn=db_session_factory).openai.register(client)
     ```
 
 ## Full Example Using MySQL, SQLAlchemy and OpenAI
 
 ```python
 from memori import Memori
-from MyLoggedInUser import MyLoggedInUser
 from openai import OpenAI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-db = create_engine("mysql+pymysql://dbuser:dbpassword@dbhost/dbname")
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=db)
+engine = create_engine("mysql+pymysql://dbuser:dbpassword@dbhost/dbname")
+db_session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 client = OpenAI()
 
-mem = Memori(conn=SessionLocal).openai.register(client)
-mem.attribution(parent_id=str(MyLoggedInUser.id), process_id="astronomer_agent")
+mem = Memori(conn=db_session_factory).openai.register(client)
+mem.attribution(parent_id="user_123", process_id="astronomer_agent")
 
 response = client.chat.completions.create(
     model="gpt-4o-mini",
-    messages=[{"role", "user", "content": "What color is Mars?"}]
+    messages=[{"role": "user", "content": "What color is Mars?"}]
 )
 
 # The planet Mars is red.
@@ -118,7 +117,7 @@ response = client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
         {
-            "role", "user",
+            "role": "user",
             "content": "That planet we are talking about, in order from the sun, which one is it?"
         }
     ]
@@ -145,7 +144,7 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 
 ## Supported Database Integrations
 
-- **DB API 2.0** - Direct support for any Python database driver that implements the [PEP 249 Database API Specification v2.0](https://peps.python.org/pep-0249/). This includes drivers like `psycopg`, `pymysql`, `MySQLdb`, and `sqlite3`. Simply pass your raw database connection object to Memori and it will automatically detect and use the appropriate dialect.
+- **DB API 2.0** - Direct support for any Python database driver that implements the [PEP 249 Database API Specification v2.0](https://peps.python.org/pep-0249/). This includes drivers like `psycopg`, `pymysql`, `MySQLdb`, and `sqlite3`.
 - **Django** - Native integration with Django's ORM and database layer
 - SQLAlchemy
 
@@ -181,7 +180,7 @@ Memori's Advanced Augmentation enhances memories at each of these levels with:
 
 Memori knows who your user is, what tasks your agent handles and creates unparalleled context between the two. Augmentation occurs in the background incurring no latency.
 
-By default, Memori Advanced Augmentation is available without an account but rate limited. When you need increased limited, [sign up for Memori Advanced Augmentation](https://memorilabs.ai/sign-up/github) or execute the following:
+By default, Memori Advanced Augmentation is available without an account but rate limited. When you need increased limits, [sign up for Memori Advanced Augmentation](https://memorilabs.ai/sign-up/github) or execute the following:
 
 ```bash
 python3 -m memori sign-up <email_address>
@@ -206,7 +205,7 @@ Note, that this job is for augmenting memories, not for recalling them. It is im
 To execute Advanced Augmentation, execute the following:
 
 ```python
-Memori(conn=SessionLocal).augmentation.run()
+Memori(conn=db_session_factory).augmentation.run()
 ```
 
 Here is a full example for how Advanced Augmentation should be run:
@@ -229,11 +228,11 @@ Memori.augmentation.pidlock(dir="/tmp")
 def main():
     job_id = sys.argv[1]
     seconds_sleep = 1
-    # SessionLocal is a sessionmaker or other connection factory
-    SessionLocal = [however you create your connection factory]
+    # Create your database connection factory here
+    # Example: db_session_factory = sessionmaker(bind=engine)
     with_output = True
 
-    mem = Memori(conn=SessionLocal)
+    mem = Memori(conn=db_session_factory)
 
     while True:
         mem.augmentation.run(job_id=job_id, with_output=with_output)
