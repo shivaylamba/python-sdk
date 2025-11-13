@@ -22,10 +22,40 @@ Sign up for [CockroachDB Cloud](https://www.cockroachlabs.com/product/cloud/).
    uv run python main.py
    ```
 
-## How Memori is Used
+## Full Example Using CockroachDB, SQLAlchemy and OpenAI
 
-1. Registers OpenAI client with Memori
-2. Configures attribution with `parent_id` (user) and `process_id` (bot/session)
-3. Builds Memori schema using `build()` to create necessary database tables
-4. Runs interactive chat loop where all messages are automatically persisted to CockroachDB
-5. Commits after each interaction to save conversation history
+```python
+from memori import Memori
+from openai import OpenAI
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine("postgresql://dbuser:dbpassword@dbhost/dbname?sslmode=verify-full")
+db_session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+client = OpenAI()
+
+mem = Memori(conn=db_session_factory).openai.register(client)
+mem.attribution(parent_id="user_123", process_id="astronomer_agent")
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "What color is Mars?"}]
+)
+
+# The planet Mars is red.
+print(response.choices[0].message.content)
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {
+            "role": "user",
+            "content": "That planet we are talking about, in order from the sun, which one is it?"
+        }
+    ]
+)
+
+# Mars is the 4th planet from the sun.
+print(response.choices[0].message.content)
+```
