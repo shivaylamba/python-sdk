@@ -155,6 +155,7 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 - MongoDB
 - MySQL
 - Neon
+- Oracle
 - PostgreSQL
 - SQLite
 - Supabase
