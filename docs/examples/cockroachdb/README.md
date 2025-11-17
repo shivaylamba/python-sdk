@@ -24,7 +24,7 @@ You may need to record the database connection string for your implementation. O
 2. **Set environment variables**:
    ```bash
    export OPENAI_API_KEY=your_api_key_here
-   export COCKROACH_CONNECTION_STRING=postgresql://user:password@host:26257/defaultdb?sslmode=verify-full
+   export COCKROACHDB_CONNECTION_STRING=postgresql://user:password@host:26257/defaultdb?sslmode=verify-full
    ```
 
 3. **Run the example**:

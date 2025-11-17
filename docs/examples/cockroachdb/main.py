@@ -10,7 +10,7 @@ Demonstrates:
 Requirements:
 - Environment variables:
   - OPENAI_API_KEY
-  - COCKROACH_CONNECTION_STRING (e.g., postgresql://user:pass@host:port/db?sslmode=require)
+  - COCKROACHDB_CONNECTION_STRING (e.g., postgresql://user:pass@host:port/db?sslmode=require)
 
 Behavior:
 - Verifies CockroachDB connection with test query
@@ -33,9 +33,9 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise RuntimeError("OPENAI_API_KEY is not set")
 
-database_url = os.getenv("COCKROACH_CONNECTION_STRING")
+database_url = os.getenv("COCKROACHDB_CONNECTION_STRING")
 if not database_url:
-    raise RuntimeError("COCKROACH_CONNECTION_STRING is not set")
+    raise RuntimeError("COCKROACHDB_CONNECTION_STRING is not set")
 
 client = OpenAI(api_key=api_key)
 
