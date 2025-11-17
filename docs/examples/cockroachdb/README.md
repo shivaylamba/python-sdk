@@ -10,7 +10,9 @@ Install Memori:
 pip install memori
 ```
 
-Sign up for [CockroachDB Cloud](https://www.cockroachlabs.com/product/cloud/). You may need to record the database connection string for your implementation.
+Sign Up for [CockroachDB Cloud](https://www.cockroachlabs.com/product/cloud/):
+
+You may need to record the database connection string for your implementation. Once you've signed up, your database is provisioned and ready for use with Memori.
 
 ## Full Example Using CockroachDB, SQLAlchemy and OpenAI
 
