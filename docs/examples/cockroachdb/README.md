@@ -24,7 +24,7 @@ You may need to record the database connection string for your implementation. O
 2. **Set environment variables**:
    ```bash
    export OPENAI_API_KEY=your_api_key_here
-   export COCKROACH_CONNECTION_STRING=postgresql://user:password@host:26257/defaultdb?sslmode=require
+   export COCKROACH_CONNECTION_STRING=postgresql://user:password@host:26257/defaultdb?sslmode=verify-full
    ```
 
 3. **Run the example**:
@@ -40,7 +40,7 @@ from openai import OpenAI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("postgresql://dbuser:dbpassword@dbhost/dbname?sslmode=verify-full")
+engine = create_engine("postgresql://user:password@host:26257/defaultdb?sslmode=verify-full")
 db_session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 client = OpenAI()
