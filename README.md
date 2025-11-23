@@ -213,52 +213,12 @@ python3 -m memori quota
 
 Or by checking your account at [https://memorilabs.ai/](https://memorilabs.ai/). If you have reached your IP address quota, sign up and get an API key for increased limits.
 
-If you API key exceeds its quota limits we will email you and let you know.
+If your API key exceeds its quota limits we will email you and let you know.
 
 ## Running Memori Advanced Augmentation
 
-The process of augmenting memories is technically complex and requires time for processing. Your application should benefit from the power of augmentation without the latency. In order to achieve this we have designed a background job that you need to run in order to activate Advanced Augmentation.
+The process of augmenting memories is technically complex and requires time for processing. Your application should benefit from the power of augmentation without the latency. In order to achieve this we have designed the system to use a background thread after your call to an LLM returns.
 
-We designed this job for scale and parallel processing and suggest that you run the job in a loop as fast you want. The benefit of running this job frequently is that memories can be formed in near real time which means additional context will be available immediately. However, if it's more suitable for you to run augmentation once a day you can do that as well.
+Upon return from the LLM, we automatically trigger a call to Memori Advanced Augmentation, wait for the response and write all of the newly created memories directly into your database.
 
-Note, that this job is for augmenting memories, not for recalling them. It is imperative that recall be done in real time at the moment your system is engaging the LLM. Recall will execute at exactly the right moment but relies on the enhancements made by Augmentation to be fully effective.
-
-To execute Advanced Augmentation, execute the following:
-
-```python
-Memori(conn=db_session_factory).augmentation.run()
-```
-
-Here is a full example for how Advanced Augmentation should be run:
-
-```python
-#!/usr/bin/env python3
-
-import os
-import sys
-import time
-
-from memori import Memori
-
-if len(sys.argv) != 2:
-    print(f"usage: {os.path.basename(sys.argv[0])} [int(job_id)]")
-    exit(1)
-
-Memori.augmentation.pidlock(dir="/tmp")
-
-def main():
-    job_id = sys.argv[1]
-    seconds_sleep = 1
-    # Create your database connection factory here
-    # Example: db_session_factory = sessionmaker(bind=engine)
-    with_output = True
-
-    mem = Memori(conn=db_session_factory)
-
-    while True:
-        mem.augmentation.run(job_id=job_id, with_output=with_output)
-        time.sleep(seconds_sleep)
-
-if __name__ == "__main__":
-    main()
-```
+Our team of engineers and AI researchers are always working to make sure that Memori creates the best, more relevant memories for you. We will continue to improve both all of the SDK's we support as well as the Memori Advanced Augmentation system.
