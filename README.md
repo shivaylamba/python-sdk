@@ -203,6 +203,18 @@ Once you've obtained an API key, simply set the following environment variable:
 export MEMORI_API_KEY=[api_key]
 ```
 
+## Managing Your Quota
+
+At any time, you can check your quota by executing the following:
+
+```bash
+python3 -m memori quota
+```
+
+Or by checking your account at [https://memorilabs.ai/](https://memorilabs.ai/). If you have reached your IP address quota, sign up and get an API key for increased limits.
+
+If you API key exceeds its quota limits we will email you and let you know.
+
 ## Running Memori Advanced Augmentation
 
 The process of augmenting memories is technically complex and requires time for processing. Your application should benefit from the power of augmentation without the latency. In order to achieve this we have designed a background job that you need to run in order to activate Advanced Augmentation.
