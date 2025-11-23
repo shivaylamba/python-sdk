@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <i>From Postgres to MySQL to MongoDB, Memori plugs into the databases you already use. Simple setup, infinite scale without new infrastructure.</i>
+  <i>Memori plugs into the software and infrastructure you already use. It is LLM, datastore and framework agnostic and seamlessly integrates into the architecture you've already designed.</i>
 </p>
 
 <p align="center">
