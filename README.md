@@ -7,25 +7,33 @@
 <p align="center">
   <i>Memori plugs into the software and infrastructure you already use. It is LLM, datastore and framework agnostic and seamlessly integrates into the architecture you've already designed.</i>
 </p>
-
 <p align="center">
-  <a href="https://memorilabs.ai/">Learn more</a>
-  ·
-  <a href="https://www.gibsonai.com/discord">Join Discord</a>
+  <a href="https://trendshift.io/repositories/15418">
+    <img src="https://trendshift.io/_next/image?url=https%3A%2F%2Ftrendshift.io%2Fapi%2Fbadge%2Frepositories%2F15418&w=640&q=75" alt="GibsonAI%2FMemori | Trendshif">
+  </a>
 </p>
 
 <p align="center">
   <a href="https://badge.fury.io/py/memorisdk">
-    <img src="https://badge.fury.io/py/memori.svg" alt="PyPI version">
+    <img src="https://badge.fury.io/py/memorisdk.svg" alt="PyPI version">
   </a>
   <a href="https://pepy.tech/projects/memorisdk">
     <img src="https://static.pepy.tech/badge/memorisdk" alt="Downloads">
   </a>
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0">
+  <a href="https://opensource.org/license/apache-2-0">
+    <img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License">
   </a>
   <a href="https://www.python.org/downloads/">
-    <img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="Python 3.10+">
+    <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python 3.8+">
+  </a>
+  <a href="https://discord.gg/abD4eGym6v">
+    <img src="https://img.shields.io/discord/1042405378304004156?logo=discord" alt="Discord">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/GibsonAI/memori/stargazers">
+    <img src="https://img.shields.io/badge/⭐%20Give%20a%20Star-Support%20the%20project-orange?style=for-the-badge" alt="Give a Star">
   </a>
 </p>
 
