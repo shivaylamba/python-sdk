@@ -99,6 +99,16 @@ session_id = mem.config.session_id
 mem.set_session(session_id)
 ```
 
+## Suggested Setup Steps
+
+To make sure everything is installed in the most efficient manner, we suggest you execute the following once:
+
+```bash
+python3 -m memori setup
+```
+
+This step is not necessary but will prep your environment for faster execution. If you do not perform this step, it will be executed the first time Memori is run which will cause the first execution (and only the first one) to be a little slower.
+
 ## Configure Your Database
 
 1. Run this command once, via CI/CD or anytime you update Memori.
