@@ -94,3 +94,15 @@ mem.attribution(entity_id="12345", process_id="my-ai-bot")
 ## ERD
 
 ![Memori Schema ERD](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/erd.png)
+
+## When to Use It
+
+- Chatbots or AI assistants with returning users
+- Use cases that need to remember user preferences across session
+- You want personalized AI interactions
+- With multi-step workflows or agentic systems
+- For building relationships between entities
+
+## Comparison
+
+![](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/comparison.png)
