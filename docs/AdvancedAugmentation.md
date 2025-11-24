@@ -55,7 +55,7 @@ Tables involved in Entity & Process
 
 Facts are extracted from the LLM conversations and attributed to the entity. They include a vector embedding, the number of times they were mentioned and the last time they were mentioned.
 
-The vector embedding is created by calling [FIXME] and is critical for recalling memories to enhance context.
+The vector embedding is created using a sentence transformer with 768 dimensions and is critical for recalling memories to enhance context.
 
 Using Advanced Augmentation, Memori automatically creates facts and writes them to your datastore.
 
