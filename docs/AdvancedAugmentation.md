@@ -98,7 +98,7 @@ mem.attribution(entity_id="12345", process_id="my-ai-bot")
 ## When to Use It
 
 - Chatbots or AI assistants with returning users
-- Use cases that need to remember user preferences across session
+- Use cases that need to remember user preferences across sessions
 - You want personalized AI interactions
 - With multi-step workflows or agentic systems
 - For building relationships between entities
