@@ -12,7 +12,6 @@ import asyncio
 import os
 import struct
 from concurrent.futures import ProcessPoolExecutor
-from pathlib import Path
 from typing import Any
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
@@ -27,11 +26,7 @@ _EMBEDDING_EXECUTOR_MAX_WORKERS = 4
 
 def _get_model(model_name: str) -> SentenceTransformer:
     if model_name not in _MODEL_CACHE:
-        bundled_path = Path(__file__).parent.parent / "models" / model_name
-        if bundled_path.exists():
-            _MODEL_CACHE[model_name] = SentenceTransformer(str(bundled_path))
-        else:
-            _MODEL_CACHE[model_name] = SentenceTransformer(model_name)
+        _MODEL_CACHE[model_name] = SentenceTransformer(model_name)
     return _MODEL_CACHE[model_name]
 
 
