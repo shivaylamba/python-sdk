@@ -1,6 +1,8 @@
-# Memori Neon Example
+# Memori + Neon Example
 
-Example showing how to use Memori with [Neon serverless Postgres](https://neon.tech).
+Sign up for [Neon serverless Postgres](https://neon.tech).
+
+You may need to record the database connection string for your implementation. Once you've signed up, your database is provisioned and ready for use with Memori.
 
 ## Quick Start
 

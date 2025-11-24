@@ -1,4 +1,4 @@
-# Memori SQLite Example
+# Memori + SQLite Example
 
 Example showing how to use Memori with SQLite.
 

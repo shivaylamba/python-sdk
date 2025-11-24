@@ -1,4 +1,4 @@
-# Memori MongoDB Example
+# Memori + MongoDB Example
 
 Example showing how to use Memori with MongoDB.
 

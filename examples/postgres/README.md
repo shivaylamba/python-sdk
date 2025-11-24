@@ -1,4 +1,4 @@
-# Memori PostgreSQL Example
+# Memori + PostgreSQL Example
 
 Example showing how to use Memori with PostgreSQL.
 

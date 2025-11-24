@@ -10,7 +10,7 @@ Install Memori:
 pip install memori
 ```
 
-Sign Up for [CockroachDB Cloud](https://www.cockroachlabs.com/product/cloud/):
+Sign up for [CockroachDB Cloud](https://www.cockroachlabs.com/product/cloud/).
 
 You may need to record the database connection string for your implementation. Once you've signed up, your database is provisioned and ready for use with Memori.
 
@@ -32,40 +32,9 @@ You may need to record the database connection string for your implementation. O
    uv run python main.py
    ```
 
-## Full Example Using CockroachDB, SQLAlchemy and OpenAI
+## What This Example Demonstrates
 
-```python
-from memori import Memori
-from openai import OpenAI
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-engine = create_engine("postgresql://user:password@host:26257/defaultdb?sslmode=verify-full")
-db_session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-client = OpenAI()
-
-mem = Memori(conn=db_session_factory).openai.register(client)
-mem.attribution(entity_id="user_123", process_id="astronomer_agent")
-
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "What color is Mars?"}]
-)
-
-# The planet Mars is red.
-print(response.choices[0].message.content)
-
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-        {
-            "role": "user",
-            "content": "That planet we are talking about, in order from the sun, which one is it?"
-        }
-    ]
-)
-
-# Mars is the 4th planet from the sun.
-print(response.choices[0].message.content)
-```
+- **Serverless CockroachDB**: Connect to CockroachDB's cloud serverless Postgres with zero database management
+- **Automatic persistence**: All conversation messages are automatically stored in your CockroachDB database
+- **Context preservation**: Memori injects relevant conversation history into each LLM call
+- **Interactive chat**: Type messages and see how Memori maintains context across the conversation
