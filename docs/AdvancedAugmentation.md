@@ -78,3 +78,13 @@ Tables involved in Semantic Triples:
 - memori_predicate
 - memori_object
 - memori_knowledge_graph
+
+## Context Recall
+
+Intercept message, embed their query, pull all the entity facts, perform semantic search in FAISS to get the most relevant facts.  Returns the 5 most relevant facts and adds them to the system prompt and the query is then sent to the LLM.
+
+## Attribution
+
+## ERD
+
+[![Memori Schema ERD](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/erd.png)]
