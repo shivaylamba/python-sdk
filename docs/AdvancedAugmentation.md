@@ -87,4 +87,4 @@ Intercept message, embed their query, pull all the entity facts, perform semanti
 
 ## ERD
 
-[Memori Schema ERD](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/erd.png)
+![](https://s3.us-east-1.amazonaws.com/images.memorilabs.ai/erd.png)
