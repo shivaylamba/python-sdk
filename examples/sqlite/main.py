@@ -64,7 +64,7 @@ if __name__ == "__main__":
         mem.attribution(entity_id="12345", process_id="my-ai-bot")
 
         # Build database schema (creates tables for messages, conversations, etc.)
-        mem.storage.build()
+        mem.config.storage.build()
 
         print("\nType 'exit' to quit.\n")
         while True:
@@ -91,9 +91,9 @@ if __name__ == "__main__":
             print(f"AI: {assistant_reply}")
 
             # Persist conversation to database
-            mem.storage.adapter.commit()
+            mem.config.storage.adapter.commit()
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        if mem.storage.adapter:
-            mem.storage.adapter.close()
+        if mem.config.storage.adapter:
+            mem.config.storage.adapter.close()
