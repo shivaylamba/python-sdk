@@ -26,7 +26,7 @@ mem = Memori().openai.register(client)
 
 ## Conversations
 
-The back and forth questions and statements and responses from the LLM are automatically stored inside your database. Memori will recall and add the messages to subsequent LLM calls. We call this conversation tracking.
+The back and forth questions and statements and responses from the LLM are automatically stored inside your datastore. Memori will recall and add the messages to subsequent LLM calls. We call this conversation tracking.
 
 Tables involved in Conversations:
 - memori_conversation
@@ -36,5 +36,45 @@ Tables involved in Conversations:
 
 The back and forth exchanges with the LLM are automatically grouped together into a session. This ensures you can recall entire conversations that were related to a particular conversation between the user and the LLM.
 
-Table involved in Sessions:
+Tables involved in Sessions:
 - memori_session
+
+## Entity & Process
+
+Memory has two core components to which data is attributed:
+- entity: think person, place, or thing; list a user
+- process: think your agent, LLM interaction or program
+
+Advanced Augmentation will "attach" data to each of these while the entity (user) is having a conversation with an LLM (process).
+
+Tables involved in Entity & Process
+- memori_entity
+- memori_process
+
+## Facts
+
+Facts are extracted from the LLM conversations and attributed to the entity. They include a vector embedding, the number of times they were mentioned and the last time they were mentioned.
+
+The vector embedding is created by calling [FIXME] and is critical for recalling memories to enhance context.
+
+Using Advanced Augmentation, Memori automatically creates facts and writes them to your datastore.
+
+Tables involved in Facts
+- memori_entity_fact
+
+## Attributes
+
+Attributes are extracted from the LLM conversations and attributed to the process. The goal is here to learn what your process typically talks about or provides to the user to make sure we match the best facts from the user to the process. This will ensure the most accurate context.
+
+Tables involved in Attributes:
+- memori_process_attribute
+
+## Semantic Triples
+
+To create facts, Advanced Augmentation uses named-entity recognition to create semantic triples (subject, predicate, object). Memori will automatically store (and dedupe) the semantic triples in your datastore including building a knowledge graph.
+
+Tables involved in Semantic Triples:
+- memori_subject
+- memori_predicate
+- memori_object
+- memori_knowledge_graph
