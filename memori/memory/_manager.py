@@ -8,8 +8,9 @@ r"""
                        memorilabs.ai
 """
 
+import warnings
+
 from memori._config import Config
-from memori.memory._collector import Collector
 from memori.memory._writer import Writer
 
 
@@ -18,9 +19,16 @@ class Manager:
         self.config = config
 
     def execute(self, payload):
-        if self.config.api_key is not None:
-            Collector(self.config).fire_and_forget(payload)
-        else:
-            Writer(self.config).execute(payload)
+        if self.config.enterprise is True:
+            warnings.warn(
+                "Memori Enterprise is not available yet.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+            # TODO: Implement enterprise mode
+            # from memori.memory._collector import Collector
+            # Collector(self.config).fire_and_forget(payload)
+
+        Writer(self.config).execute(payload)
 
         return self
