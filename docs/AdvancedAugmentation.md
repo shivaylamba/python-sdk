@@ -42,7 +42,7 @@ Tables involved in Sessions:
 ## Entity & Process
 
 Memory has two core components to which data is attributed:
-- entity: think person, place, or thing; list a user
+- entity: think person, place, or thing; like a user
 - process: think your agent, LLM interaction or program
 
 Advanced Augmentation will "attach" data to each of these while the entity (user) is having a conversation with an LLM (process).
@@ -64,7 +64,7 @@ Tables involved in Facts
 
 ## Attributes
 
-Attributes are extracted from the LLM conversations and attributed to the process. The goal is here to learn what your process typically talks about or provides to the user to make sure we match the best facts from the user to the process. This will ensure the most accurate context.
+Attributes are extracted from the LLM conversations and attributed to the process. The goal is to learn what your process typically talks about or provides to the user to make sure we match the best facts from the user to the process. This will ensure the most accurate context.
 
 Tables involved in Attributes:
 - memori_process_attribute
