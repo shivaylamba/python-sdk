@@ -187,7 +187,7 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 - [SQLite](./examples/sqlite) - Full example with setup instructions
 - Supabase
 
-## Memori Advanced Augmentation
+## [Memori Advanced Augmentation])(./docs/AdvancedAugmentation.md)
 
 Memories are tracked at several different levels:
 
