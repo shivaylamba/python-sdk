@@ -187,7 +187,7 @@ _(unstreamed, streamed, synchronous and asynchronous)_
 - [SQLite](./examples/sqlite) - Full example with setup instructions
 - Supabase
 
-## [Memori Advanced Augmentation])(./docs/AdvancedAugmentation.md)
+## Memori Advanced Augmentation
 
 Memories are tracked at several different levels:
 
@@ -195,7 +195,7 @@ Memories are tracked at several different levels:
 - process: think your agent, LLM interaction or program
 - session: the current interactions between the entity, process and the LLM
 
-Memori's Advanced Augmentation enhances memories at each of these levels with:
+[Memori's Advanced Augmentation](./docs/AdvancedAugmentation.md) enhances memories at each of these levels with:
 
 - attributes
 - events
